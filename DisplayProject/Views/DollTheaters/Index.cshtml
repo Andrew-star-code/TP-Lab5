@@ -1,0 +1,51 @@
+﻿@using DisplayProject.Models
+@model List<DollTheaters>
+
+@helper RenderDollTheatersTable(List<DollTheaters> dollTheaters)
+{
+    <table>
+        <thead>
+            <tr>
+                <th>Название театра</th>
+                <th>Город</th>
+                <th>Дата открытия</th>
+                <th>Количество представлений</th>
+                <th>Средняя цена билета</th>
+                <th>Ежегодный доход</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @while (dollTheaters.Any())
+            {
+                var dollTheater = dollTheaters.First();
+                dollTheaters.Remove(dollTheater);
+
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => dollTheater.Name)</td>
+                    <td>@Html.DisplayFor(modelItem => dollTheater.City)</td>
+                    <td>@Html.DisplayFor(modelItem => dollTheater.OpenDate)</td>
+                    <td>@Html.DisplayFor(modelItem => dollTheater.NumberOfPerfomances)</td>
+                    <td>@Html.DisplayFor(modelItem => dollTheater.AveragePerfomancePrice)</td>
+                    <td>@Html.DisplayFor(modelItem => dollTheater.AnnualRevenue)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<h1>Кукольные театры</h1>
+
+@if (Model.Any())
+{
+    @RenderDollTheatersTable(Model)
+}
+else
+{
+    <p>Нет данных.</p>
+}
+
+<div>
+    @Html.ActionLink("Добавить новый театр", "AddTheater")
+</div>
